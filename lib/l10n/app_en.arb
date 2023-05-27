@@ -1,3 +1,5 @@
 {
-  "map": "Map"
+  "map": "Map",
+  "settings": "Settings",
+  "reports": "Reports"
 }

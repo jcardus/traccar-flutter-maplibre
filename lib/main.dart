@@ -62,16 +62,16 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
+            icon: const Icon(Icons.map),
             label: AppLocalizations.of(context)!.map,
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.article),
+            label: AppLocalizations.of(context)!.reports,
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.settings),
+            label: AppLocalizations.of(context)!.settings,
           ),
         ],
         currentIndex: _selectedIndex,
