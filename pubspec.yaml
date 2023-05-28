@@ -11,6 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  maplibre_gl:
+    git:
+      url: https://github.com/maplibre/flutter-maplibre-gl.git
+      ref: release-0.16.0
 
   cupertino_icons: ^1.0.2
   flutter_localizations:
