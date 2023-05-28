@@ -19,7 +19,7 @@ class _Settings extends State<Settings> {
     super.initState();
     var user = context.read<UserModel>();
     _channel = IOWebSocketChannel.connect(
-        Uri.parse('wss://${const String.fromEnvironment("TRACCAR_SERVER")}/api/socket'),
+        Uri.parse('wss://${context.read<UserModel>().server}/api/socket'),
         headers: {'Cookie': user.cookie}
     );
   }
