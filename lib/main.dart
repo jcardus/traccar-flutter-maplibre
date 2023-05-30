@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:traccar_flutter_maplibre/screens/devices.dart';
 import 'package:traccar_flutter_maplibre/screens/login.dart';
 import 'package:traccar_flutter_maplibre/screens/reports.dart';
 import 'package:traccar_flutter_maplibre/screens/settings.dart';
 import 'package:traccar_flutter_maplibre/screens/map.dart';
 import 'package:go_router/go_router.dart';
+import 'models/devices.dart';
 import 'models/user.dart';
 
 void main() {
@@ -33,7 +35,17 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListenableProvider(create: (context) => UserModel(),
+    return MultiProvider(providers: [
+      ListenableProvider(create: (context) => UserModel()),
+      ChangeNotifierProxyProvider<UserModel, DevicesModel>(
+        create: (context) => DevicesModel(),
+        update: (context, user, devices) {
+          if (devices == null) throw ArgumentError.notNull('devices');
+          devices.user = user;
+          return devices;
+        },
+      )
+    ],
     child: MaterialApp.router(
       title: 'Traccar',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -62,7 +74,18 @@ class _AppState extends State<_App> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0
+      ),
       body: getBody(),
+      drawer: const Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: Devices()
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
